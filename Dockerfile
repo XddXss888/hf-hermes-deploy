@@ -122,6 +122,10 @@ RUN useradd -m -u 1000 appuser && \
     mkdir -p /home/appuser/.cache && \
     chown -R appuser:appuser /data /opt/hermes-web-ui /app /home/appuser /opt/playwright-browsers /opt/cloakbrowser 2>/dev/null || true
 
+# Hosts-based ad/tracker domain blocker（root 权限，构建时写入）
+COPY block-ads.sh /tmp/block-ads.sh
+RUN /tmp/block-ads.sh && rm /tmp/block-ads.sh
+
 USER appuser
 
 # ==================== 运行时环境变量 ====================
