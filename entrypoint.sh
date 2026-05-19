@@ -13,6 +13,15 @@ set -e
 echo "🚀 Hermes Agent v0.10.0 - Hugging Face Spaces"
 echo "=============================================="
 
+# 自动检测 CloakBrowser，无需手动设置 AGENT_BROWSER_EXECUTABLE_PATH
+if [ -z "$AGENT_BROWSER_EXECUTABLE_PATH" ] && [ -d /opt/cloakbrowser ]; then
+    CB=$(find /opt/cloakbrowser -name chrome -type f 2>/dev/null | head -1)
+    if [ -n "$CB" ]; then
+        export AGENT_BROWSER_EXECUTABLE_PATH="$CB"
+        echo "🕵️  CloakBrowser 自动检测: $CB"
+    fi
+fi
+
 # 确保 bun 在 PATH 中（baoyu-skills 子进程需要）
 # bun 已安装在 /usr/local/bin（全局可访问），/home/appuser/.local/bin 用于 wrapper 脚本
 export PATH="$PATH:/usr/local/bin:/home/appuser/.local/bin"

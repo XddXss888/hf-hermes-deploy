@@ -223,6 +223,19 @@ LONGCAT_API_KEY = xxxxxxxxxxxx
 
 Agent 会自动调用 `browser_navigate` 打开网页，`browser_vision` 截图分析。
 
+### 默认使用 CloakBrowser（推荐）
+
+部署**默认自动使用 CloakBrowser**，无需手动配置。启动时会自动检测 `/opt/cloakbrowser/` 下的 stealth Chromium 二进制，只有在找不到时才回退到默认 Chromium。
+
+如果你想手动指定或切换回默认：
+```
+# 使用 CloakBrowser（通常不需要，已自动检测）
+AGENT_BROWSER_EXECUTABLE_PATH = /opt/cloakbrowser/chromium-*/chrome
+
+# 切换回默认 Chromium
+AGENT_BROWSER_EXECUTABLE_PATH = （留空或删除）
+```
+
 ### 切换为 CloakBrowser
 
 需要反检测（如过 Cloudflare Turnstile）时，在 Space 变量中设置：
